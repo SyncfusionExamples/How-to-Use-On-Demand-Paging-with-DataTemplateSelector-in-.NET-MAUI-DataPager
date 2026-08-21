@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SfDataGridSample"
+             xmlns:selectors="clr-namespace:SfDataGridSample.Selector"
+             xmlns:syncPager="clr-namespace:Syncfusion.Maui.DataGrid.DataPager;assembly=Syncfusion.Maui.DataGrid"
+             x:Class="SfDataGridSample.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="NineBallTemplate">
+            <Border Margin="5" 
+                    HeightRequest="80"
+                    BackgroundColor="MistyRose">
+                <VerticalStackLayout>
+                    <Label FontAttributes="Bold"
+                         Text="{Binding Name}" />
+                    <Label Text="{Binding BreakShots, StringFormat='Break shots: {0}'}" />
+                </VerticalStackLayout>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OnePocketTemplate">
+            <Border Margin="5"
+                    HeightRequest="80"
+                    BackgroundColor="LavenderBlush">
+                <VerticalStackLayout>
+                    <Label FontAttributes="Bold"
+                         Text="{Binding Name}" />
+                    <Label Text="{Binding Venue}" />
+                </VerticalStackLayout>
+            </Border>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto">
+        <CollectionView x:Name="matchesCollectionView"
+                        Grid.Row="0">
+            <CollectionView.ItemTemplate>
+                <selectors:MatchTemplateSelector NineBallTemplate="{StaticResource NineBallTemplate}"
+                                                 OnePocketTemplate="{StaticResource OnePocketTemplate}" />
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <syncPager:SfDataPager x:Name="dataPager"
+                               Grid.Row="1"
+                               Margin="7.5,17.5,7.5,8.5"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Center"
+                               HeightRequest="36"
+                               ButtonSize="36"
+                               ButtonSpacing="8"
+                               ButtonFontSize="14"
+                               NumericButtonCount="8"/>
+    </Grid>
+
+</ContentPage>
